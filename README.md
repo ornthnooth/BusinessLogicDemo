@@ -1,8 +1,11 @@
-Home screen will have links/ actions to allow Primary Use Case actions.
+Home screen has links/ actions to allow Primary Use Case actions.
 Data entity model is given in PDF diagram.
 
 Special consideration needs to be given for logic involving insufficient inventory for an order. Data model for transactions allows for backordering
 through use of order date and execution date.
+Should the system stop sales if there is insufficient quantity? Trigger could be set to automatically reorder stock.
+If the system allow "back order sales", then a stock could be implemented via UA or trigger at a certain threshold.
+
 
 USE CASES
 •	Add Product
@@ -43,7 +46,7 @@ OrderItem
 		
 		 CREATE TABLE Transactions(
 			TransactionID varchar(255)NOT NULL PRIMARY KEY,
-			Product ID int NOT NULL,
+			Product ID int NOT NULL,       --foreign key FOREIGN KEY REFERENCES Products(ProductID)
 			Count int,
 			Type varchar(255),
 			RequestDate DateTime,
@@ -52,7 +55,7 @@ OrderItem
 		
 		CREATE TABLE Inventory(
 			ID int NOT NULL PRIMARY KEY,
-			ProductID int,
+			ProductID int,               --foreign key FOREIGN KEY REFERENCES Products(ProductID)
 			Count int
 		);
 		
@@ -60,7 +63,7 @@ OrderItem
 			ProductID int NOT NULL PRIMARY KEY,
 			Name varchar(255),
 			Price decimal,
-			SupplierID int
+			SupplierID int                 --foreign key FOREIGN KEY REFERENCES Suppliers(SupplierID)
 		);
 		
 		CREATE TABLE Suppliers(
